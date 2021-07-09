@@ -9,7 +9,7 @@ window.onload = function() {
 const searchButton = document.getElementById("search-button");
 const input = document.getElementById("input-word");
 const resultContainer = document.getElementById("result-container");
-const clickedWordsContainer = document.getElementById("saved-words-container");
+const clickedWordsContainer = document.getElementsByClassName("clicked-words-container");
 const errorMessage = document.getElementById("error-message");
 const wordAPI = "https://wordsapiv1.p.rapidapi.com/words/";
 
@@ -60,7 +60,7 @@ function getWords(inputValue) {
         let wordValue = synonymsResults[i];
         let wordDiv = document.createElement('div');
         wordDiv.innerHTML = wordValue;
-        wordDiv.setAttribute("class", "synonyms");
+        wordDiv.setAttribute("class", "words");
         wordDiv.addEventListener('click', function() {
           input.value = wordValue;
           clikedWords(wordValue);
@@ -82,18 +82,23 @@ function getSynonyms(data) {
 }
 
 function clikedWords(word) {
-    let clickedWordDiv = document.createElement('div');
-    // let x = document.createElement('a');
-    // x.innerHTML ="  x";
-    // x.style.color = "red";
-    // x.style.padding = "2px 3px 2px 3px";
+    let clickedWordDiv = document.createElement("div");
+    let x = document.createElement('a');
+    x.innerHTML ="  x";
+    x.style.color = "red";
+    x.style.padding = "2px 3px 2px 3px";
     clickedWordDiv.innerHTML = word;
-    // clickedWordDiv.appendChild(x);
-    clickedWordsContainer.appendChild(clickedWordDiv);
     clickedWordDiv.setAttribute("class", "words");
+    clickedWordDiv.appendChild(x);
+    $(".clicked-words-container").append(clickedWordDiv);
     clickedWordDiv.style.flexDirection = "column";
     x.addEventListener('click', remove, false);
 }
+
+function remove() {
+    this.parentNode.remove();
+}
+
 
 const WordData = {
   words: [],
