@@ -12,7 +12,7 @@ div #book-left {
   text-align: center;
   width: 400px;
   height: 500px;
-  /* background-color: pink; */
+  background-image: linear-gradient(to right, #DCDCDC, #EEEEEE , #FFFFFF, #FFFFFF,#FFFFFF, #FFFFFF, #EEEEEE, #DCDCDC);
   border-radius: 50%/25px 25px 0 0;
   border: 2px solid black;
 }
@@ -20,11 +20,28 @@ div #book-left {
 div #book-right {
   width: 400px;
   height: 500px;
-  /* background-color: blue; */
+  background-image: linear-gradient(to right, #DCDCDC, #EEEEEE , #FFFFFF, #FFFFFF,#FFFFFF, #FFFFFF, #EEEEEE, #DCDCDC);
   border-radius: 50%/25px 25px 0 0;
   border: 2px solid black;
   /* border-bottom-right-radius: 50% 150px !important; */
    /* border-bottom: 13px solid #eee; */
+}
+
+div #error-message {
+  width: 225px;
+  height: 20px;
+}
+
+#input-word {
+  width: 225px;
+  background-color: transparent;
+  border: none;
+  border-bottom: 1px solid black;
+
+}
+
+#search-button {
+  margin-left: 10px;
 }
 
 div .page-bottom {
@@ -35,6 +52,34 @@ div .page-bottom {
 
 }
 
-div #word-result-container{
+div #result-container {
+  overflow: scroll;
+  padding: 10px;
 
+  width: 400px;
+  height: 370px;
+  background-color: transparent;
+  border: 1px solid gray;
+}
+
+div #clicke-words-container {
+  overflow: scroll;
+  text-align: center;
+    margin-top: 10px;
+    width: 400px;
+    height: 400px;
+    padding: 10px;
+}
+
+.synonyms {
+  margin: 5px 5px 5px 5px;
+  height: auto;
+  padding: 5px 15px 5px 15px;
+  border-top-right-radius: 20px 50%;
+  border-bottom-right-radius: 20px 50%;
+  border-top-left-radius: 20px 50%;
+  border-bottom-left-radius: 20px 50%;
+  border: 2px solid black;
+  display: inline-block;
+  cursor: pointer;
 }
