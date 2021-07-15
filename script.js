@@ -51,11 +51,20 @@ function getWords(inputValue) {
 
       } else {errorMessage.innerHTML = data.message;}
     }
+
+    // console.log(data.results);
     let synonymsResults = data.results
       .map(result => result.synonyms)
       .filter(synonym => synonym)
       .flatMap(synonym => synonym);
-    console.log(synonymsResults);
+
+    let partOfSpeechResults = data.results
+      .map(result => result.partOfSpeech);
+
+    let definitionResults = data.results
+      .map(result => result.definition);
+    // console.log(synonymsResults);
+
     for(let i=0; i<synonymsResults.length; i++) {
         let wordValue = synonymsResults[i];
         let wordDiv = document.createElement('div');
@@ -64,16 +73,14 @@ function getWords(inputValue) {
         wordDiv.addEventListener('click', function() {
           input.value = wordValue;
           clikedWords(wordValue);
-          getWords();
         });
         resultContainer.appendChild(wordDiv);
     }
   })
-
 }
 
 function getSynonyms(data) {
-  console.log(data);
+  // console.log(data);
   // let synonymsResult = data.results
   // .map(result => result.synonyms)
   // .filter(synonym => synonym)
@@ -82,6 +89,34 @@ function getSynonyms(data) {
 }
 
 function clikedWords(word) {
+    // WordData.assignWord(object);
+    getWords(word);
+
+    fetch(wordAPI + word, {
+      headers: {"X-Mashape-Key": "267a89e0c1msh4a664cb7046de60p1abc82jsna3d384a0934e"}
+    })
+    .then((resp) => resp.json())
+    .then(function(data) {
+      if(!data.success) {
+        // console.log(data.message);
+        if(data.message === undefined) {
+
+        } else {errorMessage.innerHTML = data.message;}
+      }
+
+        let partOfSpeechResults = data.results
+          .map(result => result.partOfSpeech);
+
+        let definitionResults = data.results
+          .map(result => result.definition);
+
+        console.log(partOfSpeechResults);
+        console.log(definitionResults);
+
+        WordData.assignWord(definitionResults, partOfSpeechResults);
+    })
+
+
     let clickedWordDiv = document.createElement("div");
     let x = document.createElement('a');
     x.innerHTML ="  x";
@@ -107,8 +142,11 @@ const WordData = {
   antonyms: false,
 
 // SAVING WORD INTO WORDS DATA
-  assignWord: function(definitions, partOfSpeech, synonyms, antonyms, examples) {
-    this.words.push(new Word(definitions, partOfSpeech, synonyms, antonyms, examples));
+  // assignWord: function(definitions, partOfSpeech, synonyms, antonyms, examples) {
+  //   this.words.push(new Word(definitions, partOfSpeech, synonyms, antonyms, examples));
+  // }
+  assignWord: function(definitions, partOfSpeech) {
+    this.words.push(new Word(definitions, partOfSpeech));
   }
 }
 
@@ -116,10 +154,10 @@ function displayResults() {
   getWords();
 }
 
-function Word(definitions, partOfSpeech, synonyms, antonyms, examples) {
+function Word(definitions, partOfSpeech) {
   this.definitions = definitions;
-  this.synonyms = synonyms;
-  this.antonyms = antonyms;
-  this.examples = examples;
+  // this.synonyms = synonyms;
+  // this.antonyms = antonyms;
+  // this.examples = examples;
   this.partOfspeech = partOfSpeech
 }
