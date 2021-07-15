@@ -3,7 +3,7 @@ window.onload = function() {
     console.log("it's working");
     // console.log(test.definitions + test.synonyms);
 
-    getWords("success");
+    // getWords("success");
     // console.log(WordData.words);
 };
 const searchButton = document.getElementById("search-button");
@@ -104,16 +104,20 @@ function clikedWords(word) {
         } else {errorMessage.innerHTML = data.message;}
       }
 
+        // let partOfSpeechResults = data.results
+        //   .map(result => result.partOfSpeech);
+        console.log(data);
         let partOfSpeechResults = data.results
-          .map(result => result.partOfSpeech);
-
-        let definitionResults = data.results
-          .map(result => result.definition);
-
+        .map( result => new Word(word, result.definition, result.partOfSpeech));
         console.log(partOfSpeechResults);
-        console.log(definitionResults);
+        // let definitionResults = data.results
+        //   .map(result => result.definition);
 
-        WordData.assignWord(definitionResults, partOfSpeechResults);
+        // console.log(partOfSpeechResults);
+        // console.log(definitionResults);
+
+        // WordData.assignWord(word, definitionResults, partOfSpeechResults);
+        // console.log(WordData.words);
     })
 
 
@@ -137,24 +141,25 @@ function remove() {
 
 const WordData = {
   words: [],
-  definitions: true,
-  synonyms: false,
-  antonyms: false,
+  definitions: [],
+  partOfspeech: [],
 
 // SAVING WORD INTO WORDS DATA
   // assignWord: function(definitions, partOfSpeech, synonyms, antonyms, examples) {
   //   this.words.push(new Word(definitions, partOfSpeech, synonyms, antonyms, examples));
   // }
-  assignWord: function(definitions, partOfSpeech) {
-    this.words.push(new Word(definitions, partOfSpeech));
+  assignWord: function(wordValue, definitions, partOfSpeech) {
+    this.words.push(new Word(wordValue, definitions, partOfSpeech));
   }
+
 }
 
 function displayResults() {
   getWords();
 }
 
-function Word(definitions, partOfSpeech) {
+function Word(word, definitions, partOfSpeech) {
+  this.word = word;
   this.definitions = definitions;
   // this.synonyms = synonyms;
   // this.antonyms = antonyms;
