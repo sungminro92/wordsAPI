@@ -122,12 +122,14 @@ function clikedWords(word) {
 
 
     let clickedWordDiv = document.createElement("div");
+    let tooltipDiv = document.createElement("div");
     let x = document.createElement('a');
     x.innerHTML ="  x";
     x.style.color = "red";
     x.style.padding = "2px 3px 2px 3px";
     clickedWordDiv.innerHTML = word;
     clickedWordDiv.setAttribute("class", "words");
+    tooltipDiv.setAttribute("class", "tooltip");
     clickedWordDiv.appendChild(x);
     $(".clicked-words-container").append(clickedWordDiv);
     clickedWordDiv.style.flexDirection = "column";
